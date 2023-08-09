@@ -1,0 +1,5 @@
+Flask==2.2.2
+flask_mongoengine==1.0.0
+WTForms==2.3.3
+py-bcrypt==0.4
+google-cloud==0.29.0
