@@ -5,10 +5,10 @@
 <div class="jumbotron text-center">
     <div class="container">
         <h1 class="jumbotron-heading">
-            Find a Party
+            Find a Event
         </h1>
         <p class="lead text-muted">
-            If you want to go fast, go alone, If you want to go far, go together.
+            Connecting Innovators, Inspiring Futures: Unleash the Power of Tech at TechEvent!.
         </p>
         
         <form method="GET" action="{{ url_for('party_page.explore') }}">
@@ -31,7 +31,7 @@
 
 {% if parties and parties.pages > 0 %}
 <p class="text-muted text-center">
-    Party near {{ place }}
+    Event near {{ place }}
 </p>
 
 
@@ -98,7 +98,7 @@
 </div>
 {% elif place %}
 <p class="text-muted text-center">
-    We couldn't find any parties here :(
+    We couldn't find any Events here :(
 </p>
 {% else %}
 {% endif %}

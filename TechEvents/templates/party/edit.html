@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Edit Party{% endblock %}
+{% block title %}Edit Event{% endblock %}
 {% block content %}
 
 <div class="row">
@@ -13,7 +13,7 @@
         
         <div class="text-center">
             <h3>
-                Edit Party
+                Edit Event
             </h3>
             <h6>
                 <a href="{{ url_for('party_page.public', id=party.id) }}">Preview</a>
@@ -46,12 +46,12 @@
             {{ render_field(form.description, class="form-control", rows="8", minlength="50") }}
             
             {% if party.cancel %}
-            This party is canceled
+            This Event is canceled
             {% else %}
             <button type="submit" class="btn btn-success">
                 Save
             </button>
-            <a href="{{ url_for('party_page.cancel', id=party.id) }}">Cancel party</a>
+            <a href="{{ url_for('party_page.cancel', id=party.id) }}">Cancel event</a>
             {% endif %}
         </form>
     </div>
