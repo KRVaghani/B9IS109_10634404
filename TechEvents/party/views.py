@@ -6,8 +6,7 @@ from party.forms import BasicPartyForm, EditPartyForm, CancelPartyForm
 from user.decorators import login_required
 from party.models import Party
 from user.models import User
-from utilities.storage import upload_image_file  
-
+from utilities.storage import upload_image_file
 party_page = Blueprint('party_page', __name__)
 
 @party_page.route('/create', methods=['GET', 'POST'])
@@ -17,7 +16,7 @@ def create():
     error = None
     if request.method == 'POST' and form.validate():
         if form.end_datetime.data < form.start_datetime.data:
-            error = "A party must end after it starts!"
+            error = "A event must end after it starts!"
         if not error:
             user = User.objects.filter(email=session.get('email')).first()
             
@@ -51,16 +50,17 @@ def edit(id):
         form = EditPartyForm(obj=party)
         if request.method == 'POST' and form.validate():
             if form.end_datetime.data < form.start_datetime.data:
-                error = 'A party must end after it starts!'
+                error = 'A event must end after it starts!'
             if not error:
                 form.populate_obj(party)
                 if form.lng.data and form.lat.data:
                     party.location = [form.lng.data, form.lat.data]
                 image_url = upload_image_file(request.files.get('photo'), 'party_photo', str(party.id))
+                
                 if image_url:
                     party.party_photo = image_url
                 party.save()
-                message = 'Party updated'
+                message = 'Event updated'
         return render_template('party/edit.html', form=form, error=error,
                               message=message, party=party)
     else:
@@ -151,12 +151,17 @@ def manage(party_page_number=1):
 @party_page.route('/explore/<int:party_page_number>', methods=['GET'])
 @party_page.route('/explore', methods=['GET'])
 def explore(party_page_number=1):
+    
     place = request.args.get('place')
+
     try:
         lng = float(request.args.get('lng'))
         lat = float(request.args.get('lat'))
+        
         parties = Party.objects(location__near=[lng, lat], location__max_distance=10000,
                                cancel=False).order_by('-start_datetime').paginate(page=party_page_number, per_page=4)
+        
         return render_template('party/explore.html', parties=parties, place=place, lng=lng, lat=lat)
     except:
+       
         return render_template('party/explore.html', place=place)

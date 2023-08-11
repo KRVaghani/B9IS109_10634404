@@ -38,13 +38,13 @@ def signup():
 
         user = User(
             name=form.name.data,
-            email=form.email.data,
+            email=form.email.data.lower(),
             password=hashed_password
         )
 
         user.save()
         return redirect(url_for('user_page.login'))
-    return render_template('user/signup.html', form = form)
+    return render_template('user/signup.html', form=form)
 
 @user_page.route('/logout')
 def logout():

@@ -5,6 +5,9 @@ import six
 from flask import current_app
 from google.cloud import storage
 
+credential_path = "/Users/kaushik/Documents/techevents-395404-0d385013fdc6.json"
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
+
 def upload_image_file(file, folder, content_id):
     if not file:
         return None
@@ -19,7 +22,11 @@ def upload_image_file(file, folder, content_id):
     blob.upload_from_string(file.read(),
                            content_type=file.content_type)
     url = blob.public_url
+
+    # url2 = 'https://storage.cloud.google.com/{}/{}'.format(bucket.name, blob.name)
+
     
+    # print(blob.public_url + "vs" + url2)
     if isinstance(url, six.binary_type):
         url = url.decode('utf-8')
     return url

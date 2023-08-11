@@ -48,7 +48,7 @@
         </p>
         
         {% if party.cancel %}
-        This party has been canceled.
+        This event has been canceled.
         {% elif session['email'] == host.email %}
         {% elif user in party.attendees %}
         <a href="{{ url_for('party_page.leave', id=party.id) }}" class="btn btn-danger">Leave</a>

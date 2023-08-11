@@ -13,3 +13,5 @@ MONGODB_SETTINGS = {
 PROJECT_ID = 'techevents-395404'
 CLOUD_STORAGE_BUCKET = 'techeventkrvaghani'
 
+
+
